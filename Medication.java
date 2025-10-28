@@ -18,17 +18,6 @@ public class Medication {
         this.expiryDate = generateRandomDate();
     }
 
-    // Helper methods
-    public String generateRandomID(){
-        return UUID.randomUUID().toString();
-    }
-
-    private LocalDate generateRandomDate() {
-        Random random = new Random();
-        int daysOffset = random.nextInt(4 * 365) - (2 * 365);
-        return LocalDate.now().plusDays(daysOffset);
-    }
-
     // Getters and Setters
     public String getId() {
         return id;
@@ -66,8 +55,24 @@ public class Medication {
         this.expiryDate = expiryDate;
     }
 
+        // Helper methods
+    public static String generateRandomID(){
+        return UUID.randomUUID().toString();
+    }
+
+    private LocalDate generateRandomDate() {
+        Random random = new Random();
+        int daysOffset = random.nextInt(4 * 365) - (2 * 365);
+        return LocalDate.now().plusDays(daysOffset);
+    }
+
+    // to String method
     public String toString() {
-        return ("Medication ID: " + id +", Name: " + name + ", Dosage: " + dosage +", Quantity in Stock: " + quantityInStock + ", Expiry Date: " + expiryDate);
+        return (" | Medication ID: " + id +
+        " | Name: " + name +
+        " | Dosage: " + dosage +
+        " | Quantity in Stock: " + quantityInStock +
+        " | Expiry Date: " + expiryDate);
     }
 
 }
