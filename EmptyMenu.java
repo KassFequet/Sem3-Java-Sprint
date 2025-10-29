@@ -430,7 +430,7 @@ public class EmptyMenu {
 
         Patient patient = system.getPatientByNameNoPrint(patientName);
         if (patient != null) {
-            system.deletePatient(patient.getId());
+            system.deletePatientNoPrint(patient.getId());
             System.out.println("Patient deleted successfully!");
         } else {
             System.out.println("Patient not found.");
@@ -443,7 +443,7 @@ public class EmptyMenu {
 
         Doctor doctor = system.getDoctorByNameNoPrint(doctorName);
         if (doctor != null) {
-            system.deleteDoctor(doctor.getId());
+            system.deleteDoctorNoPrint(doctor.getId());
             System.out.println("Doctor deleted successfully!");
         } else {
             System.out.println("Doctor not found.");
@@ -456,7 +456,7 @@ public class EmptyMenu {
 
         Medication medication = system.getMedicationByNameNoPrint(medicationName);
         if (medication != null) {
-            system.deleteMedication(medication.getId());
+            system.deleteMedicationNoPrint(medication.getId());
             System.out.println("Medication deleted successfully!");
         } else {
             System.out.println("Medication not found.");

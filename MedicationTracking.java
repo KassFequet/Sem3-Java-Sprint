@@ -127,11 +127,23 @@ public class MedicationTracking {
         }
     }
 
+    public void deleteDoctorNoPrint(String name) {
+        if (doctors.removeIf(d -> d.getName().equalsIgnoreCase(name))) {
+            System.out.println("Doctor deleted successfully.");
+        }
+    }
+
     public void deleteMedication(String name) {
         if (medications.removeIf(m -> m.getName().equalsIgnoreCase(name))) {
             System.out.println("Medication deleted successfully.");
         } else {
             System.out.println("Medication not found.");
+        }
+    }
+
+    public void deleteMedicationNoPrint(String name) {
+        if (medications.removeIf(m -> m.getName().equalsIgnoreCase(name))) {
+            System.out.println("Medication deleted successfully.");
         }
     }
     
@@ -140,6 +152,12 @@ public class MedicationTracking {
             System.out.println("Patient deleted successfully.");
         } else {
             System.out.println("Patient not found.");
+        }
+    }
+
+    public void deletePatientNoPrint(String name) {
+        if (patients.removeIf(p -> p.getName().equalsIgnoreCase(name))) {
+            System.out.println("Patient deleted successfully.");
         }
     }
     
