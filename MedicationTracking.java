@@ -185,13 +185,13 @@ public class MedicationTracking {
     // Assign Patient to Doctor
 
     public void assignPatientToDoctor(String doctorName, String patientName) {
-        Doctor doctor = getDoctorByName(doctorName);
-        Patient patient = getPatientByName(patientName);
+        Doctor doctor = getDoctorByNameNoPrint(doctorName);
+        Patient patient = getPatientByNameNoPrint(patientName);
         if (doctor != null && patient != null) {
             doctor.addPatient(patient);
-            System.out.println("Assigned " + patient.getName() + " to Dr. " + doctor.getName() + "!");
+            System.out.println("\nSuccessfully assigned " + patient.getName() + " to Dr. " + doctor.getName() + "!\n");
         } else {
-            System.out.println("Assignment failed. Check names and try again.");
+            System.out.println("\nAssignment failed. Check names and try again.\n");
         }
     }
 
@@ -199,7 +199,7 @@ public class MedicationTracking {
     // Reports
 
     public void generateSystemReport() {
-        System.out.println("===== SYSTEM REPORT =====");
+        System.out.println("\n===== SYSTEM REPORT =====");
         System.out.println("\n--- Doctors ---");
         doctors.forEach(System.out::println);
 
@@ -214,7 +214,7 @@ public class MedicationTracking {
     }
 
     public void generateExpiredMedicationReport() {
-        System.out.println("===== EXPIRED MEDICATION REPORT =====");
+        System.out.println("\n===== EXPIRED MEDICATION REPORT =====");
         LocalDate today = LocalDate.now();
         boolean hasExpired = false;
         for (Medication m : medications) {
@@ -229,7 +229,7 @@ public class MedicationTracking {
     }
 
     public void generatePrescriptionsByDoctorReport(Doctor doctor) {
-        System.out.println("===== PRESCRIPTIONS FOR DR. " + doctor.getName().toUpperCase() + " =====");
+        System.out.println("\n===== PRESCRIPTIONS FOR DR. " + doctor.getName().toUpperCase() + " =====");
         boolean found = false;
         for (Prescription p : prescriptions) {
             if (p.getDoctor().equals(doctor)) {
@@ -284,12 +284,12 @@ public class MedicationTracking {
     }
 
     public void restockMedication(String medicationName, int quantity) {
-        Medication medication = getMedicationByName(medicationName);
+        Medication medication = getMedicationByNameNoPrint(medicationName);
         if (medication != null) {
             medication.setQuantityInStock(medication.getQuantityInStock() + quantity);
-            System.out.println("Medication restocked successfully | New quantity: " + medication.getQuantityInStock());
+            System.out.println("\n" + medication.getName() + " restocked successfully | New quantity: " + medication.getQuantityInStock());
         } else {
-            System.out.println("Medication not found.");
+            System.out.println("\nMedication not found.");
         }
     }
 

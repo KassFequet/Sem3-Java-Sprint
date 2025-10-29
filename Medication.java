@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.UUID;
 import java.time.LocalDate;
 
 public class Medication {
