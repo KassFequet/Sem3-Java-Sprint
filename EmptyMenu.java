@@ -230,45 +230,102 @@ public class EmptyMenu {
     
     private static void editPatient(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Edit Patient Information =====");
-        System.out.print("Enter patient name to edit patient information: ");
-        String name = scanner.nextLine();
-
-        Patient patient = system.getPatientByNameNoPrint(name);
-        if (patient != null) {
-            System.out.print("Enter a new name (leave blank if not changing): ");
-            String updatedName = scanner.nextLine();
-            if (!updatedName.isEmpty()) {
-                patient.setName(updatedName);
+        Patient patient = null;
+        while (patient == null) {
+            System.out.print("Enter patient name to edit patient information: ");
+            String patientName = scanner.nextLine();
+            patient = system.getPatientByNameNoPrint(patientName);
+            if (patient == null) {
+                System.out.println("Patient not found - Please try again");
             }
-
-            System.out.print("Enter a new age (leave blank if not changing): ");
-            String ageInput = scanner.nextLine();
-            if (!ageInput.isEmpty()) {
-                int updatedAge = Integer.parseInt(ageInput);
-                patient.setAge(updatedAge);
-            }
-
-            System.out.print("Enter a new phone number (leave blank if not changing): ");
-            String updatedPhone = scanner.nextLine();
-            if (!updatedPhone.isEmpty()) {
-                patient.setPhoneNumber(updatedPhone);
-            }
-
-            System.out.println("\nPatient updated successfully");
-            System.out.println("Updated Patient Information: " + patient);
-        } else {
-            System.out.println("\nInvalid Patient Name - Please try again.");
         }
-    }
+
+        System.out.print("Enter a new name (leave blank if not changing): ");
+        String updatedName = scanner.nextLine();
+        if (updatedName.isEmpty()) updatedName = patient.getName();
+
+        System.out.print("Enter a new age (leave blank if not changing): ");
+        String ageInput = scanner.nextLine();
+        int updatedAge = ageInput.isEmpty() ? patient.getAge() : Integer.parseInt(ageInput);
+
+        System.out.print("Enter a new phone number (leave blank if not changing): ");
+        String updatedPhone = scanner.nextLine();
+        if (updatedPhone.isEmpty()) updatedPhone = patient.getPhoneNumber();
+
+        system.editPatient(patient.getId(), updatedName, updatedAge, updatedPhone);
+
+        System.out.println("\nUpdated Patient Information: " + patient + "\n");
+        }
     
+
     private static void editDoctor(Scanner scanner, MedicationTracking system) {
-        
+        System.out.println("\n===== Edit Doctor Information =====");
+        Doctor doctor = null;
+        while (doctor == null) {
+            System.out.print("Enter doctor name to edit doctor information: ");
+            String doctorName = scanner.nextLine();
+            doctor = system.getDoctorByNameNoPrint(doctorName);
+            if (doctor == null) {
+                System.out.println("Doctor not found - Please try again");
+            }
+        }
+
+        System.out.print("Enter a new name (leave blank if not changing): ");
+        String updatedName = scanner.nextLine();
+    if (updatedName.isEmpty()) updatedName = doctor.getName();
+
+        System.out.print("Enter a new age (leave blank if not changing): ");
+        String ageInput = scanner.nextLine();
+        int updatedAge = ageInput.isEmpty() ? doctor.getAge() : Integer.parseInt(ageInput);
+
+        System.out.print("Enter a new phone number (leave blank if not changing): ");
+        String updatedPhone = scanner.nextLine();
+        if (updatedPhone.isEmpty()) updatedPhone = doctor.getPhoneNumber();
+
+        System.out.print("Enter a new specialization (leave blank if not changing): ");
+        String updatedSpecialization = scanner.nextLine();
+        if (updatedSpecialization.isEmpty()) updatedSpecialization = doctor.getSpecialization();
+
+        system.editDoctor(doctor.getId(), updatedName, updatedAge, updatedPhone, updatedSpecialization);
+
+        System.out.println("\nUpdated Doctor Information: " + doctor + "\n");
     }
+
     
     private static void editMedication(Scanner scanner, MedicationTracking system) {
-        
+    System.out.println("\n===== Edit Medication Information =====");
+    Medication medication = null;
+    while (medication == null) {
+        System.out.print("Enter medication name to edit medication information: ");
+        String medName = scanner.nextLine();
+        medication = system.getMedicationByNameNoPrint(medName);
+        if (medication == null) {
+            System.out.println("Medication not found - Please try again");
+        }
+    }
+
+    System.out.print("Enter a new name (leave blank if not changing): ");
+    String updatedName = scanner.nextLine();
+    if (updatedName.isEmpty()) updatedName = medication.getName();
+
+    System.out.print("Enter a new dosage (leave blank if not changing): ");
+    String updatedDosage = scanner.nextLine();
+    if (updatedDosage.isEmpty()) updatedDosage = medication.getDosage();
+
+    System.out.print("Enter a new quantity in stock (leave blank if not changing): ");
+    String quantityInput = scanner.nextLine();
+    int updatedQuantity = quantityInput.isEmpty() ? medication.getQuantityInStock() : Integer.parseInt(quantityInput);
+
+    System.out.print("Enter a new expiry date (YYYY-MM-DD, leave blank if not changing): ");
+    String expiryInput = scanner.nextLine();
+    java.time.LocalDate updatedExpiry = expiryInput.isEmpty() ? medication.getExpiryDate() : java.time.LocalDate.parse(expiryInput);
+
+    system.editMedication(medication.getId(), updatedName, updatedDosage, updatedQuantity, updatedExpiry);
+
+    System.out.println("\nUpdated Medication Information: " + medication + "\n");
     }
     
+
     private static void assignPatientToDoctor(Scanner scanner, MedicationTracking system) {
         
     }
