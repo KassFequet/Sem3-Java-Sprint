@@ -22,7 +22,7 @@ public class MedicationTracking {
 
         Doctor D1 = new Doctor("D100", "Maggie Green", 30, "709-529-9827", "Cardiology");
         Doctor D2 = new Doctor("D101", "Rory Charles", 55, "709-376-9726", "Neurology");
-        Doctor D3 = new Doctor("102", "Melissa Smith", 43, "709-827-9721", "Oncology");
+        Doctor D3 = new Doctor("D102", "Melissa Smith", 43, "709-827-9721", "Oncology");
         doctors.add(D1);
         doctors.add(D2);
         doctors.add(D3);
@@ -40,6 +40,13 @@ public class MedicationTracking {
         medications.add(M1);
         medications.add(M2);
         medications.add(M3);
+
+        Prescription PR1 = new Prescription("PR100", D1, P1, M1, LocalDate.of(2025, 8, 13));
+        Prescription PR2 = new Prescription("PR101", D2, P1, M2, LocalDate.of(2023, 1, 20));
+        Prescription PR3 = new Prescription("PR102", D2, P1, M3, LocalDate.of(2024, 12, 25));
+        prescriptions.add(PR1);
+        prescriptions.add(PR2);
+        prescriptions.add(PR3);
     }
 
     // Search Methods
@@ -261,17 +268,20 @@ public class MedicationTracking {
     }
 
     public void generatePrescriptionsByPatientReport(Patient patient) {
-        System.out.println("===== PRESCRIPTIONS FOR PATIENT " + patient.getName().toUpperCase() + " =====");
+        System.out.println("\n===== PRESCRIPTIONS FOR PATIENT " + patient.getName().toUpperCase() + " =====");
         boolean found = false;
+        LocalDate today = LocalDate.now();
         for (Prescription p : prescriptions) {
-            if (p.getPatient().equals(patient)) {
-                System.out.println(p);
+        if (p.getPatient().equals(patient)) {
+            if (p.getPrescriptionExpiry().isAfter(today) || p.getPrescriptionExpiry().isEqual(today)) {
+                System.out.println(p.getMedication().getName());
                 found = true;
             }
         }
-        if (!found) {
-            System.out.println("No prescriptions found for patient " + patient.getName() + ".");
-        }
+    }
+    if (!found) {
+        System.out.println("No non-expired prescriptions found for patient " + patient.getName() + ".");
+    }
     }
 
     //Accept a prescription

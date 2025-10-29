@@ -47,6 +47,6 @@ public abstract class Person {
 
     // toString method
     public String toString() {
-        return "ID: " + id + ", Name: " + name + ", Age: " + age + ", Phone Number: " + phoneNumber;
+        return "ID: " + id + " | Name: " + name + " | Age: " + age + " | Phone Number: " + phoneNumber;
     }
 }
