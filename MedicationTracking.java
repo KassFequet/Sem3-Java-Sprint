@@ -258,23 +258,6 @@ public class MedicationTracking {
         }
     }
 
-<<<<<<< Updated upstream
-
-    // Restock Method
-
-    public void restockMedication(String name, int amount) {
-        Medication medication = getMedicationByName(name);
-        if (medication != null) {
-            medication.setQuantityInStock(medication.getQuantityInStock() + amount);
-            System.out.println("Restocked " + amount + " units of " + medication.getName() + "!t");
-        } else {
-            System.out.println("Medication not found. Restock failed.");
-        }
-    }
-
-
-=======
->>>>>>> Stashed changes
     //Accept a prescription
     public void acceptPrescription(String id, Doctor doctor, Patient patient, Medication medication, String dateString) {
         if (doctor == null) {
