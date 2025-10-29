@@ -42,7 +42,7 @@ public class EmptyMenu {
                     medicationTracking.generateExpiredMedicationReport();
                     break;
                 case 6:
-                    processANewScript(scanner, medicationTracking);
+                    acceptPrescription(scanner, medicationTracking);
                     break;
                 case 7:
                     generatePrescriptionsByDoctorReport(scanner, medicationTracking);
@@ -78,15 +78,65 @@ public class EmptyMenu {
     }
 
     private static void addNewPatient(Scanner scanner, MedicationTracking system) {
-
+        System.out.print("Enter patient ID: ");
+        scanner.nextLine();
+        String id = scanner.nextLine();
+        
+        System.out.print("Enter patient name: ");
+        String name = scanner.nextLine();
+        
+        System.out.print("Enter patient age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.print("Enter patient phone number: ");
+        String phoneNumber = scanner.nextLine();
+        
+        Patient newPatient = new Patient(id, name, age, phoneNumber);
+        system.addNewPatient(newPatient);
+        System.out.println("Patient added successfully!");
     }
     
     private static void addNewDoctor(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter doctor's ID: ");
+        scanner.nextLine();
+        String id = scanner.nextLine();
         
+        System.out.print("Enter doctor's name: ");
+        String name = scanner.nextLine();
+        
+        System.out.print("Enter doctor's age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+        
+        System.out.print("Enter doctor's phone number: ");
+        String phoneNumber = scanner.nextLine();
+        
+        System.out.print("Enter doctor's specialization: ");
+        String specialization = scanner.nextLine();
+        
+        Doctor newDoctor = new Doctor(id, name, age, phoneNumber, specialization);
+        system.addNewDoctor(newDoctor);
+        System.out.println("Doctor added successfully!");
     }
     
     private static void addNewMedication(Scanner scanner, MedicationTracking system) {
-        
+        System.out.print("Enter medication id: ");
+        scanner.nextLine();
+        String id = scanner.nextLine();
+
+        System.out.print("Enter medication name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter dosage:");
+        String dosage = scanner.nextLine();
+
+        System.out.print("Enter quantity in stock: ");
+        int quantityInStock = scanner.nextInt();
+
+        Medication newMedication = new Medication(id, name, dosage, quantityInStock);
+        system.addNewMedication(newMedication);
+        System.out.print("Medication added successfully!");
     }
     
     private static void processANewScript(Scanner scanner, MedicationTracking system) {
@@ -142,15 +192,40 @@ public class EmptyMenu {
     }
     
     private static void generatePrescriptionsByDoctorReport(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter doctor name: ");
+        scanner.nextLine();
+        String doctorName = scanner.nextLine();
         
+        Doctor doctor = system.getDoctorByName(doctorName);
+        if (doctor != null) {
+        system.generatePrescriptionsByDoctorReport(doctor);
+        } else {
+            System.out.println("Doctor not found.");
+        }
     }
     
     private static void restockPharmacyDrugs(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter medication name: ");
+        scanner.nextLine();
+        String medicationName = scanner.nextLine();
         
+        System.out.print("Enter amount to restock: ");
+        int amount = scanner.nextInt();
+        
+        system.restockMedication(medicationName, amount);
     }
     
     private static void generatePrescriptionsByPatientReport(Scanner scanner, MedicationTracking system) {
-        
+        System.out.println("Enter patient name: ");
+        scanner.nextLine();
+        String patientName = scanner.nextLine();
+
+        Patient patient = system.getPatientByName(patientName);
+        if (patient != null) {
+            system.generatePrescriptionsByPatientReport(patient);
+        } else {
+            System.out.println("Patient not found.");
+        }
     }
     
     private static void editPatient(Scanner scanner, MedicationTracking system) {
