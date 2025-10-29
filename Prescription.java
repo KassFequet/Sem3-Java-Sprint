@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 
 public class Prescription {
-    private final String id;
+    private String id;
     private Doctor doctor;
     private Patient patient;
     private Medication medication;
@@ -9,8 +9,8 @@ public class Prescription {
     private LocalDate prescriptionExpiry;
 
     // Constructor
-    public Prescription(Doctor doctor, Patient patient, Medication medication, LocalDate dateIssued) {
-        this.id = Medication.generateRandomID();
+    public Prescription(String id, Doctor doctor, Patient patient, Medication medication, LocalDate dateIssued) {
+        this.id = id;
         this.doctor = doctor;
         this.patient = patient;
         this.medication = medication;
@@ -41,6 +41,10 @@ public class Prescription {
 
     public LocalDate getPrescriptionExpiry() {
         return prescriptionExpiry;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setDoctor(Doctor doctor) {
