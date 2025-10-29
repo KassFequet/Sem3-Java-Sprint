@@ -42,7 +42,7 @@ public class EmptyMenu {
                     medicationTracking.generateExpiredMedicationReport();
                     break;
                 case 6:
-                    acceptPrescription(scanner, medicationTracking);
+                    processANewScript(scanner, medicationTracking);
                     break;
                 case 7:
                     generatePrescriptionsByDoctorReport(scanner, medicationTracking);
@@ -139,8 +139,8 @@ public class EmptyMenu {
         System.out.print("Medication added successfully!");
     }
     
+    
     private static void processANewScript(Scanner scanner, MedicationTracking system) {
-
         System.out.println("\n===== Proccess a New Prescription =====");
         System.out.print("Enter the prescription ID: ");
         String id = scanner.nextLine();
@@ -229,7 +229,36 @@ public class EmptyMenu {
     }
     
     private static void editPatient(Scanner scanner, MedicationTracking system) {
-        
+        System.out.println("\n===== Edit Patient Information =====");
+        System.out.print("Enter patient name to edit patient information: ");
+        String name = scanner.nextLine();
+
+        Patient patient = system.getPatientByNameNoPrint(name);
+        if (patient != null) {
+            System.out.print("Enter a new name (leave blank if not changing): ");
+            String updatedName = scanner.nextLine();
+            if (!updatedName.isEmpty()) {
+                patient.setName(updatedName);
+            }
+
+            System.out.print("Enter a new age (leave blank if not changing): ");
+            String ageInput = scanner.nextLine();
+            if (!ageInput.isEmpty()) {
+                int updatedAge = Integer.parseInt(ageInput);
+                patient.setAge(updatedAge);
+            }
+
+            System.out.print("Enter a new phone number (leave blank if not changing): ");
+            String updatedPhone = scanner.nextLine();
+            if (!updatedPhone.isEmpty()) {
+                patient.setPhoneNumber(updatedPhone);
+            }
+
+            System.out.println("\nPatient updated successfully");
+            System.out.println("Updated Patient Information: " + patient);
+        } else {
+            System.out.println("\nInvalid Patient Name - Please try again.");
+        }
     }
     
     private static void editDoctor(Scanner scanner, MedicationTracking system) {

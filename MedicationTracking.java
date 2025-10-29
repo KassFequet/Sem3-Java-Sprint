@@ -283,5 +283,15 @@ public class MedicationTracking {
         System.out.println("\nPrescription added | " + prescription + "\n");
     }
 
+    public void restockMedication(String medicationName, int quantity) {
+        Medication medication = getMedicationByName(medicationName);
+        if (medication != null) {
+            medication.setQuantityInStock(medication.getQuantityInStock() + quantity);
+            System.out.println("Medication restocked successfully | New quantity: " + medication.getQuantityInStock());
+        } else {
+            System.out.println("Medication not found.");
+        }
+    }
+
 
 }
