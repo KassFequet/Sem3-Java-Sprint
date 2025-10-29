@@ -91,6 +91,7 @@ public class MedicationTracking {
         }
     }
     
+
     // Edit Methods
 
     public void editPatient(String id, String newName, int newAge, String newPhone) {
@@ -128,4 +129,78 @@ public class MedicationTracking {
         }
     }
 
+
+    // Assign Patient to Doctor
+
+    public void assignPatientToDoctor(String doctorName, String patientName) {
+        Doctor doctor = getDoctorByName(doctorName);
+        Patient patient = getPatientByName(patientName);
+        if (doctor != null && patient != null) {
+            doctor.addPatient(patient);
+            System.out.println("Assigned " + patient.getName() + " to Dr. " + doctor.getName() + "!");
+        } else {
+            System.out.println("Assignment failed. Check names and try again.");
+        }
+    }
+
+
+    // Reports
+
+    public void generateSystemReport() {
+        System.out.println("===== SYSTEM REPORT =====");
+        System.out.println("\n--- Doctors ---");
+        doctors.forEach(System.out::println);
+
+        System.out.println("\n--- Patients ---");
+        patients.forEach(System.out::println);
+
+        System.out.println("\n--- Medications ---");
+        medications.forEach(System.out::println);
+
+        System.out.println("\n--- Prescriptions ---");
+        prescriptions.forEach(System.out::println);
+    }
+
+    public void generateExpiredMedicationReport() {
+        System.out.println("===== EXPIRED MEDICATION REPORT =====");
+        LocalDate today = LocalDate.now();
+        boolean hasExpired = false;
+        for (Medication med : medications) {
+            if (med.getExpiryDate().isBefore(today)) {
+                System.out.println(med + " | Expired on: " + med.getExpiryDate());
+                hasExpired = true;
+            }
+        }
+        if (!hasExpired) {
+            System.out.println("No expired medications found.");
+        }
+    }
+
+    public void generatePrescriptionsByDoctorReport(Doctor doctor) {
+        System.out.println("===== PRESCRIPTIONS FOR DR. " + doctor.getName().toUpperCase() + " =====");
+        boolean found = false;
+        for (Prescription p : prescriptions) {
+            if (p.getDoctor().equals(doctor)) {
+                System.out.println(p);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No prescriptions found for Dr. " + doctor.getName() + ".");
+        }
+    }
+
+    public void generatePrescriptionsByPatientReport(Patient patient) {
+        System.out.println("===== PRESCRIPTIONS FOR PATIENT " + patient.getName().toUpperCase() + " =====");
+        boolean found = false;
+        for (Prescription p : prescriptions) {
+            if (p.getPatient().equals(patient)) {
+                System.out.println(p);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No prescriptions found for patient " + patient.getName() + ".");
+        }
+    }
 }
