@@ -230,4 +230,48 @@ public class MedicationTracking {
     }
 }
     //Accept a prescription
+    public void acceptPrescription() {
+    System.out.print("Enter prescription ID: ");
+    String id = scanner.nextLine();
+
+    System.out.print("Enter doctor's name: ");
+    String dName = scanner.nextLine();
+    Doctor d = getDoctorByName(dName);
+    if (d == null) {
+        System.out.println("Doctor not found - Prescription not created.");
+        return;
+    }
+
+    System.out.print("Enter patient's name: ");
+    String pName = scanner.nextLine();
+    Patient p = getPatientByName(pName);
+    if (p == null) {
+        System.out.println("Patient not found - Prescription not created.");
+        return;
+    }
+
+    System.out.print("Enter medication name: ");
+    String mName = scanner.nextLine();
+    Medication m = getMedicationByName(mName);
+    if (m == null) {
+        System.out.println("Medication not found - Prescription not created.");
+        return;
+    }
+
+    System.out.print("Enter date issued (YYYY-MM-DD): ");
+    String dInput = scanner.nextLine();
+    LocalDate dIssued;
+    try {
+        dIssued = LocalDate.parse(dInput);
+    } catch (Exception e) {
+        System.out.println("Invalid date format - Prescription not created.");
+        return;
+    }
+
+    Prescription prescription = new Prescription(id, d, p, m, dIssued);
+    prescriptions.add(prescription);
+    System.out.println("Prescription added | \n" + prescription);
+}
+
+
 }
