@@ -3,11 +3,11 @@ import java.util.Scanner;
 public class EmptyMenu {
     public static void main(String[] args) {
         MedicationTracking medicationTracking = new MedicationTracking();
+        Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
         while (!exit){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("\n=====Welcome To The Pharmacy Med Tracking System=====");
+            System.out.println("=====Welcome To The Pharmacy Med Tracking System=====");
             System.out.println("What would you like to do? ");
             System.out.println("1: Add A New Patient");
             System.out.println("2: Add A New Doctor");
@@ -22,7 +22,13 @@ public class EmptyMenu {
             System.out.println("11: Edit Doctor");
             System.out.println("12: Edit Medication");
             System.out.println("13: Assign Patient to Doctor");
-            System.out.println("14: Exit\n");
+            System.out.println("14: Search for Patient by Name");
+            System.out.println("15: Search for Doctor by Name");
+            System.out.println("16: Search for Medication by Name");
+            System.out.println("17: Delete Patient");
+            System.out.println("18: Delete Doctor");
+            System.out.println("19: Delete Medication");
+            System.out.println("20: Exit");
             int option = scanner.nextInt();
             scanner.nextLine();
             switch (option) {
@@ -66,6 +72,24 @@ public class EmptyMenu {
                     assignPatientToDoctor(scanner, medicationTracking);
                     break;
                 case 14:
+                    searchPatientByName(scanner, medicationTracking);
+                    break;
+                case 15:
+                    searchDoctorByName(scanner, medicationTracking);
+                    break;
+                case 16:
+                    searchMedicationByName(scanner, medicationTracking);
+                    break;
+                case 17:
+                    deletePatient(scanner, medicationTracking);
+                    break;
+                case 18:
+                    deleteDoctor(scanner, medicationTracking);
+                    break;
+                case 19:
+                    deleteMedication(scanner, medicationTracking);
+                    break;
+                case 20:
                     exit = true;
                     System.out.println("Exiting The System! Good Bye!");
                     break;
@@ -74,7 +98,7 @@ public class EmptyMenu {
                     break;
             }
         }
-
+        scanner.close();
     }
 
     private static void addNewPatient(Scanner scanner, MedicationTracking system) {
@@ -364,5 +388,78 @@ public class EmptyMenu {
         system.assignPatientToDoctor(doctorName, patientName);
     }
 
+    private static void searchPatientByName(Scanner scanner, MedicationTracking system) {
+        System.out.println("Enter patient's name to search: ");
+        String patientName = scanner.nextLine();
 
+        Patient patient = system.getPatientByNameNoPrint(patientName);
+        if (patient != null) {
+            System.out.println("Patient found: " + patient);
+        } else {
+            System.out.println("Patient not found.");
+        }
+    }
+
+    private static void searchDoctorByName(Scanner scanner, MedicationTracking system) {
+        System.out.println("Enter doctor's name to search: ");
+        String doctorName = scanner.nextLine();
+
+        Doctor doctor = system.getDoctorByNameNoPrint(doctorName);
+        if (doctor != null) {
+            System.out.println("Doctor found: " + doctor);
+        } else {
+            System.out.println("Doctor not found.");
+        }
+    }
+
+    private static void searchMedicationByName(Scanner scanner, MedicationTracking system) {
+        System.out.println("Enter medication's name to search: ");
+        String medicationName = scanner.nextLine();
+
+        Medication medication = system.getMedicationByNameNoPrint(medicationName);
+        if (medication != null) {
+            System.out.println("Medication found: " + medication);
+        } else {
+            System.out.println("Medication not found.");
+        }
+    }
+
+    private static void deletePatient(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter patient's name to delete: ");
+        String patientName = scanner.nextLine();
+
+        Patient patient = system.getPatientByNameNoPrint(patientName);
+        if (patient != null) {
+            system.deletePatient(patient.getId());
+            System.out.println("Patient deleted successfully!");
+        } else {
+            System.out.println("Patient not found.");
+        }
+    }
+
+    private static void deleteDoctor(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter doctor's name to delete: ");
+        String doctorName = scanner.nextLine();
+
+        Doctor doctor = system.getDoctorByNameNoPrint(doctorName);
+        if (doctor != null) {
+            system.deleteDoctor(doctor.getId());
+            System.out.println("Doctor deleted successfully!");
+        } else {
+            System.out.println("Doctor not found.");
+        }
+    }
+
+    private static void deleteMedication(Scanner scanner, MedicationTracking system) {
+        System.out.print("Enter medication's name to delete: ");
+        String medicationName = scanner.nextLine();
+
+        Medication medication = system.getMedicationByNameNoPrint(medicationName);
+        if (medication != null) {
+            system.deleteMedication(medication.getId());
+            System.out.println("Medication deleted successfully!");
+        } else {
+            System.out.println("Medication not found.");
+        }
+    }
 }
