@@ -14,8 +14,33 @@ public class MedicationTracking {
         patients = new ArrayList<>();
         medications = new ArrayList<>();
         prescriptions = new ArrayList<>();
+        sampleData();
     }
 
+    //Sample Data
+    public void sampleData() {
+
+        Doctor D1 = new Doctor("D100", "Dr. Maggie Green", 30, "709-529-9827", "Cardiology");
+        Doctor D2 = new Doctor("D101", "Dr. Rory Charles", 55, "709-376-9726", "Neurology");
+        Doctor D3 = new Doctor("102", "Dr. Melissa Smith", 43, "709-827-9721", "Oncology");
+        doctors.add(D1);
+        doctors.add(D2);
+        doctors.add(D3);
+
+        Patient P1 = new Patient("P100", "Leonard Walsh", 26, "709-264-8254");
+        Patient P2 = new Patient("P101", "Mary Lawson", 28, "709-286-3810");
+        Patient P3 = new Patient("P102", "Marcus Beaudoin", 32, "709-329-8265");
+        patients.add(P1);
+        patients.add(P2);
+        patients.add(P3);
+
+        Medication M1 = new Medication("M100", "Amoxicillin", "500mg", 200);
+        Medication M2 = new Medication("M101", "Lisinopril", "10mg", 150);
+        Medication M3 = new Medication("M102", "Sertraline", "50mg", 100);
+        medications.add(M1);
+        medications.add(M2);
+        medications.add(M3);
+    }
 
     // Search Methods
 
@@ -128,4 +153,6 @@ public class MedicationTracking {
         }
     }
 
+
+    //Accept a prescription
 }

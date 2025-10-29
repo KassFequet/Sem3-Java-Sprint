@@ -3,15 +3,15 @@ import java.util.UUID;
 import java.time.LocalDate;
 
 public class Medication {
-    private final String id;
+    private String id;
     private String name;
     private String dosage;
     private int quantityInStock;
     private LocalDate expiryDate;
 
     // Constructor
-    public Medication(String name, String dosage, int quantityInStock){
-        this.id = generateRandomID();
+    public Medication(String id, String name, String dosage, int quantityInStock) {
+        this.id = id;
         this.name = name;
         this.dosage = dosage;
         this.quantityInStock = quantityInStock;
@@ -39,6 +39,10 @@ public class Medication {
         return expiryDate;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -53,11 +57,6 @@ public class Medication {
 
     public void setExpiryDate(LocalDate expiryDate) {
         this.expiryDate = expiryDate;
-    }
-
-        // Helper methods
-    public static String generateRandomID(){
-        return UUID.randomUUID().toString();
     }
 
     private LocalDate generateRandomDate() {
