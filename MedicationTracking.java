@@ -52,6 +52,7 @@ public class MedicationTracking {
             }
         }
         System.out.println("Doctor not found.");
+
         return null;
     }
 
@@ -61,7 +62,6 @@ public class MedicationTracking {
                 return doctor;
             }
         }
-        System.out.println("Doctor not found.");
         return null;
     }
 
@@ -82,7 +82,6 @@ public class MedicationTracking {
                 return patient;
             }
         }
-        System.out.println("Patient not found.");
         return null;
     }
 
@@ -103,7 +102,6 @@ public class MedicationTracking {
                 return medication;
             }
         }
-        System.out.println("Medication not found.");
         return null;
     }
 
@@ -282,7 +280,7 @@ public class MedicationTracking {
 
         Prescription prescription = new Prescription(id, doctor, patient, medication, dateIssued);
         prescriptions.add(prescription);
-        System.out.println("Prescription added | \n" + prescription);
+        System.out.println("\nPrescription added | " + prescription + "\n");
     }
 
 

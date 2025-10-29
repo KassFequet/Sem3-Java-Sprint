@@ -90,25 +90,55 @@ public class EmptyMenu {
     }
     
     private static void processANewScript(Scanner scanner, MedicationTracking system) {
-        System.out.print("Enter prescription ID: ");
+
+        System.out.println("\n===== Proccess a New Prescription =====");
+        System.out.print("Enter the prescription ID: ");
         String id = scanner.nextLine();
 
-        System.out.print("Enter doctor's name: ");
-        String doctorString = scanner.nextLine();
-        Doctor doctor = system.getDoctorByNameNoPrint(doctorString);
+        Doctor doctor = null;
+        while (doctor == null) {
+            System.out.print("Enter the doctor's name: ");
+            String doctorInput = scanner.nextLine();
+            doctor = system.getDoctorByNameNoPrint(doctorInput);
+            if (doctor == null) {
+                System.out.println("Doctor not found - Please try again");
+            }
+        }
 
-        System.out.print("Enter patient's name: ");
-        String patientString = scanner.nextLine();
-        Patient patient = system.getPatientByNameNoPrint(patientString);
+        Patient patient = null;
+        while (patient == null) {
+            System.out.print("Enter the patient's name: ");
+            String patientInput = scanner.nextLine();
+            patient = system.getPatientByNameNoPrint(patientInput);
+            if (patient == null) {
+                System.out.println("Patient not found - Please try again");
+            }
+        }
 
-        System.out.print("Enter medication name: ");
-        String medicationString = scanner.nextLine();
-        Medication medication = system.getMedicationByNameNoPrint(medicationString);
+        Medication medication = null;
+        while (medication == null) {
+            System.out.print("Enter the medication name: ");
+            String medicationInput = scanner.nextLine();
+            medication = system.getMedicationByNameNoPrint(medicationInput);
+            if (medication == null) {
+                System.out.println("Medication not found - Please try again");
+            }
+        }
 
-        System.out.print("Enter date issued (YYYY-MM-DD): ");
-        String dateString = scanner.nextLine();
+        String date = null;
+        boolean dateValid = false;
+        while (!dateValid) {
+            System.out.print("Enter date issued (YYYY-MM-DD): ");
+            date = scanner.nextLine();
+            try {
+                java.time.LocalDate.parse(date);
+                dateValid = true;
+            } catch (Exception unused) {
+                System.out.println("Invalid date format - Please try again");
+            }
+        }
 
-        system.acceptPrescription(id, doctor, patient, medication, dateString);
+        system.acceptPrescription(id, doctor, patient, medication, date);
     }
     
     private static void generatePrescriptionsByDoctorReport(Scanner scanner, MedicationTracking system) {
