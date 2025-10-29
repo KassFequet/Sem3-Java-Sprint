@@ -80,15 +80,15 @@ public class MedicationTracking {
 
     // Add and Delete Methods
     
-    public void addDoctor(Doctor doctor) {
+    public void addNewDoctor(Doctor doctor) {
         doctors.add(doctor);
     }
 
-    public void addPatient(Patient patient) {
+    public void addNewPatient(Patient patient) {
         patients.add(patient);
     }
 
-    public void addMedication(Medication medication) {
+    public void addNewMedication(Medication medication) {
         medications.add(medication);
     }
 
@@ -190,9 +190,9 @@ public class MedicationTracking {
         System.out.println("===== EXPIRED MEDICATION REPORT =====");
         LocalDate today = LocalDate.now();
         boolean hasExpired = false;
-        for (Medication med : medications) {
-            if (med.getExpiryDate().isBefore(today)) {
-                System.out.println(med + " | Expired on: " + med.getExpiryDate());
+        for (Medication m : medications) {
+            if (m.getExpiryDate().isBefore(today)) {
+                System.out.println(m + " | Expired on: " + m.getExpiryDate());
                 hasExpired = true;
             }
         }
@@ -228,7 +228,21 @@ public class MedicationTracking {
             System.out.println("No prescriptions found for patient " + patient.getName() + ".");
         }
     }
-}
+
+
+    // Restock Method
+
+    public void restockMedication(String name, int amount) {
+        Medication medication = getMedicationByName(name);
+        if (medication != null) {
+            medication.setQuantityInStock(medication.getQuantityInStock() + amount);
+            System.out.println("Restocked " + amount + " units of " + medication.getName() + "!t");
+        } else {
+            System.out.println("Medication not found. Restock failed.");
+        }
+    }
+
+
     //Accept a prescription
     public void acceptPrescription() {
     System.out.print("Enter prescription ID: ");
