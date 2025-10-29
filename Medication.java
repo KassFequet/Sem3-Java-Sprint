@@ -66,7 +66,7 @@ public class Medication {
 
     // to String method
     public String toString() {
-        return (" | Medication ID: " + id +
+        return ("ID: " + id +
         " | Name: " + name +
         " | Dosage: " + dosage +
         " | Quantity in Stock: " + quantityInStock +

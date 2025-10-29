@@ -18,6 +18,7 @@ public class MedicationTracking {
     }
 
     //Sample Data
+
     public void sampleData() {
 
         Doctor D1 = new Doctor("D100", "Maggie Green", 30, "709-529-9827", "Cardiology");
@@ -244,7 +245,7 @@ public class MedicationTracking {
         boolean hasExpired = false;
         for (Medication m : medications) {
             if (m.getExpiryDate().isBefore(today)) {
-                System.out.println(m + " | Expired on: " + m.getExpiryDate());
+                System.out.println(m);
                 hasExpired = true;
             }
         }
@@ -320,6 +321,5 @@ public class MedicationTracking {
             System.out.println("\nMedication not found.");
         }
     }
-
 
 }

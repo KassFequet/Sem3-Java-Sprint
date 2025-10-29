@@ -71,7 +71,7 @@ public class Prescription {
 
     // to String method
     public String toString() {
-        return ("Prescription ID: " + id +
+        return ("ID: " + id +
         " | Doctor: " + doctor.getName() +
         " | Patient: " + patient.getName() +
         " | Medication: " + medication.getName() +
