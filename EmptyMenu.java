@@ -1,7 +1,6 @@
- package medicationtracking;
- import java.util.Scanner;
- 
- public class EmptyMenu {
+import java.util.Scanner;
+
+public class EmptyMenu {
      public static void main(String[] args) {
          MedicationTracking medicationTracking = new MedicationTracking();
          boolean exit = false;
