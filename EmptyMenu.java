@@ -24,6 +24,7 @@ public class EmptyMenu {
             System.out.println("13: Assign Patient to Doctor");
             System.out.println("14: Exit");
             int option = scanner.nextInt();
+            scanner.nextLine();
             switch (option) {
                 case 1:
                     addNewPatient(scanner, medicationTracking);

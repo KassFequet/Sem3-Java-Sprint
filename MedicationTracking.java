@@ -20,9 +20,9 @@ public class MedicationTracking {
     //Sample Data
     public void sampleData() {
 
-        Doctor D1 = new Doctor("D100", "Dr. Maggie Green", 30, "709-529-9827", "Cardiology");
-        Doctor D2 = new Doctor("D101", "Dr. Rory Charles", 55, "709-376-9726", "Neurology");
-        Doctor D3 = new Doctor("102", "Dr. Melissa Smith", 43, "709-827-9721", "Oncology");
+        Doctor D1 = new Doctor("D100", "Maggie Green", 30, "709-529-9827", "Cardiology");
+        Doctor D2 = new Doctor("D101", "Rory Charles", 55, "709-376-9726", "Neurology");
+        Doctor D3 = new Doctor("102", "Melissa Smith", 43, "709-827-9721", "Oncology");
         doctors.add(D1);
         doctors.add(D2);
         doctors.add(D3);
@@ -55,10 +55,30 @@ public class MedicationTracking {
         return null;
     }
 
+        public Doctor getDoctorByNameNoPrint(String name) {
+        for (Doctor doctor : doctors) {
+            if (doctor.getName().equalsIgnoreCase(name)) {
+                return doctor;
+            }
+        }
+        System.out.println("Doctor not found.");
+        return null;
+    }
+
     public Patient getPatientByName(String name) {
         for (Patient patient : patients) {
             if (patient.getName().equalsIgnoreCase(name)) {
                 System.out.println(patient);
+                return patient;
+            }
+        }
+        System.out.println("Patient not found.");
+        return null;
+    }
+
+        public Patient getPatientByNameNoPrint(String name) {
+        for (Patient patient : patients) {
+            if (patient.getName().equalsIgnoreCase(name)) {
                 return patient;
             }
         }
@@ -77,6 +97,15 @@ public class MedicationTracking {
         return null;
     }
 
+        public Medication getMedicationByNameNoPrint(String name) {
+        for (Medication medication : medications) {
+            if (medication.getName().equalsIgnoreCase(name)) {
+                return medication;
+            }
+        }
+        System.out.println("Medication not found.");
+        return null;
+    }
 
     // Add and Delete Methods
     
@@ -229,63 +258,32 @@ public class MedicationTracking {
         }
     }
 
-
-    // Restock Method
-
-    public void restockMedication(String name, int amount) {
-        Medication medication = getMedicationByName(name);
-        if (medication != null) {
-            medication.setQuantityInStock(medication.getQuantityInStock() + amount);
-            System.out.println("Restocked " + amount + " units of " + medication.getName() + "!t");
-        } else {
-            System.out.println("Medication not found. Restock failed.");
-        }
-    }
-
-
     //Accept a prescription
-    public void acceptPrescription() {
-    System.out.print("Enter prescription ID: ");
-    String id = scanner.nextLine();
+    public void acceptPrescription(String id, Doctor doctor, Patient patient, Medication medication, String dateString) {
+        if (doctor == null) {
+            System.out.println("Doctor not found - Prescription not created.");
+            return;
+        }
+        if (patient == null) {
+            System.out.println("Patient not found - Prescription not created.");
+            return;
+        }
+        if (medication == null) {
+            System.out.println("Medication not found - Prescription not created.");
+            return;
+        }
+        LocalDate dateIssued;
+        try {
+            dateIssued = LocalDate.parse(dateString);
+        } catch (Exception unused) {
+            System.out.println("Invalid date format - Prescription not created.");
+            return;
+        }
 
-    System.out.print("Enter doctor's name: ");
-    String dName = scanner.nextLine();
-    Doctor d = getDoctorByName(dName);
-    if (d == null) {
-        System.out.println("Doctor not found - Prescription not created.");
-        return;
+        Prescription prescription = new Prescription(id, doctor, patient, medication, dateIssued);
+        prescriptions.add(prescription);
+        System.out.println("Prescription added | \n" + prescription);
     }
-
-    System.out.print("Enter patient's name: ");
-    String pName = scanner.nextLine();
-    Patient p = getPatientByName(pName);
-    if (p == null) {
-        System.out.println("Patient not found - Prescription not created.");
-        return;
-    }
-
-    System.out.print("Enter medication name: ");
-    String mName = scanner.nextLine();
-    Medication m = getMedicationByName(mName);
-    if (m == null) {
-        System.out.println("Medication not found - Prescription not created.");
-        return;
-    }
-
-    System.out.print("Enter date issued (YYYY-MM-DD): ");
-    String dInput = scanner.nextLine();
-    LocalDate dIssued;
-    try {
-        dIssued = LocalDate.parse(dInput);
-    } catch (Exception e) {
-        System.out.println("Invalid date format - Prescription not created.");
-        return;
-    }
-
-    Prescription prescription = new Prescription(id, d, p, m, dIssued);
-    prescriptions.add(prescription);
-    System.out.println("Prescription added | \n" + prescription);
-}
 
 
 }
