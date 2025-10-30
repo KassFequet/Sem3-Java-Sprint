@@ -1,3 +1,4 @@
+package PharmacySystem;
 import java.util.Random;
 import java.time.LocalDate;
 
