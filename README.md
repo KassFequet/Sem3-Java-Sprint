@@ -71,4 +71,4 @@ This repository includes two key documents:
 
 **Authors:** Kassaundra Fequet & Cameron Boyer
 
-**Instructor:** Qurrat-Ul-Ain Malik
+**Instructor:** Dr. Qurrat-Ul-Ain Malik
