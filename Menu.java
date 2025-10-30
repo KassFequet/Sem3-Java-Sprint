@@ -1,6 +1,15 @@
 import java.util.Scanner;
 
-public class EmptyMenu {
+/**
+ * The Menu class provides the main entry point and user interface for the Pharmacy Medication Tracking System.
+ * It displays a menu of options, handles user input, and delegates actions to the MedicationTracking system.
+ */
+public class Menu {
+    /**
+     * The main method that starts the application and displays the menu loop.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         MedicationTracking medicationTracking = new MedicationTracking();
         Scanner scanner = new Scanner(System.in);
@@ -91,7 +100,7 @@ public class EmptyMenu {
                     break;
                 case 20:
                     exit = true;
-                    System.out.println("Exiting The System! Good Bye!");
+                    System.out.println("\nExiting The System! Good Bye!\n");
                     break;
                 default:
                     System.out.println("Invalid option");
@@ -101,10 +110,24 @@ public class EmptyMenu {
         scanner.close();
     }
 
+    /**
+     * Prompts the user to enter patient details and adds a new patient to the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void addNewPatient(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Add a New Patient =====");
-        System.out.print("Enter patient ID: ");
-        String id = scanner.nextLine();
+        String id = null;
+        while (id == null) {
+            System.out.print("Enter patient ID: ");
+            String idInput = scanner.nextLine();
+            if (system.patientIdExists(idInput)) {
+                System.out.println("Patient ID already exists - Please try again");
+            } else {
+                id = idInput;
+            }
+        }
         
         System.out.print("Enter patient name: ");
         String name = scanner.nextLine();
@@ -122,10 +145,24 @@ public class EmptyMenu {
         System.out.println("Patient Information | " + newPatient + "\n");
     }
     
+    /**
+     * Prompts the user to enter doctor details and adds a new doctor to the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void addNewDoctor(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Add a New Doctor =====");
-        System.out.print("Enter doctor's ID: ");
-        String id = scanner.nextLine();
+        String id = null;
+        while (id == null) {
+            System.out.print("Enter doctor ID: ");
+            String idInput = scanner.nextLine();
+            if (system.doctorIdExists(idInput)) {
+                System.out.println("Doctor ID already exists - Please try again");
+            } else {
+                id = idInput;
+            }
+        }
         
         System.out.print("Enter doctor's name: ");
         String name = scanner.nextLine();
@@ -145,11 +182,25 @@ public class EmptyMenu {
         System.out.println("\nDoctor added successfully!");
         System.out.println("Doctor Information | " + newDoctor + "\n");
     }
-    
+
+    /**
+     * Prompts the user to enter medication details and adds a new medication to the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void addNewMedication(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Add a New Medication =====");
-        System.out.print("Enter medication id: ");
-        String id = scanner.nextLine();
+        String id = null;
+        while (id == null) {
+            System.out.print("Enter medication ID: ");
+            String idInput = scanner.nextLine();
+            if (system.medicationIdExists(idInput)) {
+                System.out.println("Medication ID already exists - Please try again");
+            } else {
+                id = idInput;
+            }
+        }
 
         System.out.print("Enter medication name: ");
         String name = scanner.nextLine();
@@ -166,10 +217,24 @@ public class EmptyMenu {
         System.out.println("Medication Information | " + newMedication + "\n");
     }
     
+    /**
+     * Handles the process of creating and adding a new prescription to the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void processANewScript(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Proccess a New Prescription =====");
-        System.out.print("Enter the prescription ID: ");
-        String id = scanner.nextLine();
+        String id = null;
+        while (id == null) {
+            System.out.print("Enter prescription ID: ");
+            String idInput = scanner.nextLine();
+            if (system.prescriptionIdExists(idInput)) {
+                System.out.println("Prescription ID already exists - Please try again");
+            } else {
+                id = idInput;
+            }
+        }
 
         Doctor doctor = null;
         while (doctor == null) {
@@ -217,6 +282,12 @@ public class EmptyMenu {
         system.acceptPrescription(id, doctor, patient, medication, date);
     }
     
+    /**
+     * Prompts the user for a doctor's name and generates a report of all prescriptions for that doctor.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void generatePrescriptionsByDoctorReport(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Generate Prescriptions by Doctor Report =====");
         Doctor doctor = null;
@@ -233,6 +304,12 @@ public class EmptyMenu {
         system.generatePrescriptionsByDoctorReport(doctor);
     }
     
+    /**
+     * Prompts the user for a medication name and restocks the specified medication.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void restockPharmacyDrugs(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Restock Pharmacy Drugs =====");
         Medication medication = null;
@@ -250,7 +327,13 @@ public class EmptyMenu {
         
         system.restockMedication(medication.getName(), amount);
     }
-    
+
+    /**
+     * Prompts the user for a patient's name and generates a report of all prescriptions for that patient.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void generatePrescriptionsByPatientReport(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Generate Prescriptions for Patient =====");
         Patient patient = null;
@@ -265,7 +348,13 @@ public class EmptyMenu {
         
         system.generatePrescriptionsByPatientReport(patient);
     }
-    
+
+    /**
+     * Prompts the user to edit patient information and updates the patient in the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void editPatient(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Edit Patient Information =====");
         Patient patient = null;
@@ -295,6 +384,13 @@ public class EmptyMenu {
             System.out.println("\nUpdated Patient Information | " + patient + "\n");
         }
     
+
+    /**
+     * Prompts the user to edit doctor information and updates the doctor in the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void editDoctor(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Edit Doctor Information =====");
         Doctor doctor = null;
@@ -327,7 +423,13 @@ public class EmptyMenu {
 
             System.out.println("\nUpdated Doctor Information | " + doctor + "\n");
     }
-    
+
+    /**
+     * Prompts the user to edit medication information and updates the medication in the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void editMedication(Scanner scanner, MedicationTracking system) {
     System.out.println("\n===== Edit Medication Information =====");
     Medication medication = null;
@@ -360,7 +462,13 @@ public class EmptyMenu {
 
         System.out.println("\nUpdated Medication Information | " + medication + "\n");
     }
-    
+
+    /**
+     * Prompts the user to assign a patient to a doctor.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void assignPatientToDoctor(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Assign Patient to Doctor =====");
         String patientName = null;
@@ -390,6 +498,12 @@ public class EmptyMenu {
         system.assignPatientToDoctor(doctorName, patientName);
     }
 
+    /**
+     * Prompts the user to search for a patient by name and displays the result.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void searchPatientByName(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Search Patient By Name =====");
         Patient patient = null;
@@ -405,6 +519,12 @@ public class EmptyMenu {
         System.out.println("\nPatient found | " + patient);
     }
 
+    /**
+     * Prompts the user to search for a doctor by name and displays the result.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void searchDoctorByName(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Search Doctor By Name =====");
         Doctor doctor = null;
@@ -420,6 +540,12 @@ public class EmptyMenu {
         System.out.println("\nDoctor found | " + doctor);
     }
 
+    /**
+     * Prompts the user to search for a medication by name and displays the result.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void searchMedicationByName(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Search Medication By Name =====");
         Medication medication = null;
@@ -434,6 +560,12 @@ public class EmptyMenu {
         System.out.println("\nMedication found | " + medication);
     }
 
+    /**
+     * Prompts the user to delete a patient from the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void deletePatient(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Delete Patient =====");
         Patient patient = null;
@@ -451,6 +583,12 @@ public class EmptyMenu {
 
     }
 
+    /**
+     * Prompts the user to delete a doctor from the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void deleteDoctor(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Delete Doctor =====");
         Doctor doctor = null;
@@ -467,6 +605,12 @@ public class EmptyMenu {
         }
     }
 
+    /**
+     * Prompts the user to delete a medication from the system.
+     *
+     * @param scanner The Scanner object for user input.
+     * @param system  The MedicationTracking system instance.
+     */
     private static void deleteMedication(Scanner scanner, MedicationTracking system) {
         System.out.println("\n===== Delete Medication =====");
         Medication medication = null;
@@ -482,6 +626,5 @@ public class EmptyMenu {
             }
         }
     }
-
     
 }
