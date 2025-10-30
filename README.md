@@ -23,15 +23,21 @@ This project is a pharmacy management system designed to handle patient medicati
 
 ## How to Run
 
-1. **Download the repository:**
+1. **Open a JavaIDE( IntelliJ IDEA, VS Code or Eclipse)**
+
+2. **Download the repository**
     ```sh
     git clone https://github.com/KassFequet/Sem3-Java-Sprint.git
     cd Sem3-Java-Sprint
     ```
 
-2. **Open a terminal in the project directory.**
+3. **Navigate to project directory**
+   ```sh
+   cd Sem3-Java-Sprint
+   cd PharmacySystem
+    ```
 
-3. **Run the main program:**
+3. **Run the main program**
     ```sh
     java Menu
     ```
